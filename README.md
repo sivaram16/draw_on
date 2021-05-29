@@ -1,18 +1,95 @@
-# draw_on
+# Draw On
 
-A new Flutter plugin.
+A flutter plugin to draw the coordinates on the widget and as well as to find the given point is inside a list of coordinates or not.
 
-## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## For Draw on widget 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+DrawOnWidget(
+    widget: _DrawOnImageWidget(),
+    correctAnswerCoordinates: selectedPositions,
+    getXaxis: (xAxis) {
+    setState(() {
+        selectedX = xAxis;
+    });
+    },
+    getYaxis: (yAxis) {
+    setState(() {
+        selectedY = yAxis;
+    });
+    },
+    showPointer: showPointer,
+    onTap: () {
+    setState(() {
+        showPointer = true;
+        if (selectedPositions.last.length > 3 &&
+            selectedPositions.last.first == selectedPositions.last.last) {
+        selectedPositions.add([]);
+        }
+        Offset? nearestValue = Polygon.getNearestPoint(
+            selectedPositions.last, Offset(selectedX!, selectedY!));
+        selectedPositions.last.add(Offset(selectedX!, selectedY!));
+        if (nearestValue != null) {
+        selectedPositions.last.add(nearestValue);
+        }
+        selectedX = null;
+        selectedY = null;
+    });
+    print(selectedPositions);
+    },
+    pointsColor: Colors.green,
+    lineColor: Colors.green,
+),
+```
 
-The plugin project was generated without specifying the `--platforms` flag, no platforms are currently supported.
-To add platforms, run `flutter create -t plugin --platforms <platforms> .` under the same
-directory. You can also find a detailed instruction on how to add platforms in the `pubspec.yaml` at https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms.
+## For Select Area Widget
+
+```
+ SelectAreaWidget(
+    correctAnswerCoordinates: correctAnswerCoordinates,
+    widget: _DrawOnImageWidget(),
+    isSelectable: isSelectable,
+    getXaxis: (xAxis) {
+    setState(() {
+        selectedPositionX = xAxis;
+    });
+    },
+    showPointer: showPointer,
+    getYaxis: (yAxis) {
+    setState(() {
+        selectedPositionY = yAxis;
+    });
+    },
+    onTap: () {
+    setState(() {
+        showPointer = true;
+    });
+    },
+    pointsColor: Colors.red,
+    lineColor: Colors.green,
+),
+```
+
+
+## To find nearest point
+
+```
+Polygon.getNearestPoint(points, currentPoints);
+```
+
+
+
+
+
+## To find whether the given point is inside the coordinates
+
+```
+Polygon polygon = Polygon(polygonPoints);
+isInside = polygon.isPointInside(Offset(xAxis, yAxis));
+```
+
+
+
+## Demo
+
