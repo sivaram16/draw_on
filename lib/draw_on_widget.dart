@@ -246,6 +246,7 @@ class Polygon {
     return contains(i.dx, i.dy);
   }
 
+  /// Get the nearest point.
   static Offset? getNearestPoint(List<Offset> points, Offset latestPoints) {
     Offset? nearestPoints;
     double threshold = 30;
