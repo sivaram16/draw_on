@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  draw_on
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)
