@@ -13,12 +13,6 @@ class SelectAreaWidget extends StatefulWidget {
   /// Callback to get Y - axis value
   final ValueChanged<double>? getYaxis;
 
-  /// Give coordinate size X
-  final double? coordinateSizeX;
-
-  /// Give coordinate size Y
-  final double? coordinateSizeY;
-
   /// Callback for OnTap
   final Function()? onTap;
 
@@ -40,8 +34,6 @@ class SelectAreaWidget extends StatefulWidget {
     @required this.widget,
     @required this.getXaxis,
     @required this.getYaxis,
-    @required this.coordinateSizeY,
-    @required this.coordinateSizeX,
     @required this.onTap,
     this.isSelectable = true,
     this.showPointer = false,
@@ -74,8 +66,6 @@ class _SelectAreaWidgetState extends State<SelectAreaWidget> {
               painter: SelectionPoint(
                 selectedPositionX!,
                 selectedPositionY!,
-                widget.coordinateSizeX!,
-                widget.coordinateSizeY!,
                 widget.pointsColor!,
               ),
             ),
@@ -83,8 +73,6 @@ class _SelectAreaWidgetState extends State<SelectAreaWidget> {
             CustomPaint(
               painter: AnswerRegion(
                 widget.correctAnswerCoordinates!,
-                widget.coordinateSizeX!,
-                widget.coordinateSizeY!,
                 widget.lineColor!,
               ),
             )

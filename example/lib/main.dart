@@ -61,8 +61,6 @@ class _SelectAreaExample extends StatefulWidget {
 class __SelectAreaExampleState extends State<_SelectAreaExample> {
   double? selectedPositionX;
   double? selectedPositionY;
-  double coordinateSizeX = 1;
-  double coordinateSizeY = 1;
   List<Offset> polygonPoints = [];
   final List<List<Offset>> coordinates = [
     [
@@ -113,13 +111,9 @@ class __SelectAreaExampleState extends State<_SelectAreaExample> {
               selectedPositionY = yAxis;
             });
           },
-          coordinateSizeX: coordinateSizeX,
-          coordinateSizeY: coordinateSizeY,
           onTap: () {
             setState(() {
               showPointer = true;
-              coordinateSizeX = 1.0;
-              coordinateSizeY = 1.0;
             });
           },
           pointsColor: Colors.red,
@@ -136,6 +130,7 @@ class __SelectAreaExampleState extends State<_SelectAreaExample> {
             children: [
               ElevatedButton(
                 onPressed: () {
+                  polygonPoints.clear();
                   for (final List<Offset> offset in coordinates) {
                     for (int i = 0; i < offset.length; i++) {
                       polygonPoints.add(offset[i]);
@@ -155,10 +150,10 @@ class __SelectAreaExampleState extends State<_SelectAreaExample> {
                 child: Text('Submit'),
               ),
               const SizedBox(
-                width: 30,
+                width: 20,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 24),
+                margin: EdgeInsets.symmetric(horizontal: 14),
                 child: ElevatedButton(
                   onPressed: () {
                     setState(() {
@@ -196,8 +191,6 @@ class __DrawAreaExampleState extends State<_DrawAreaExample> {
   List<List<Offset>> selectedPositions = [[]];
   bool isSelectable = true;
   bool? isInside;
-  double coordinateSizeX = 1;
-  double coordinateSizeY = 1;
   double? selectedX;
   double? selectedY;
   bool showPointer = true;
@@ -225,8 +218,6 @@ class __DrawAreaExampleState extends State<_DrawAreaExample> {
             });
           },
           showPointer: showPointer,
-          coordinateSizeX: coordinateSizeX,
-          coordinateSizeY: coordinateSizeY,
           onTap: () {
             setState(() {
               showPointer = true;
@@ -234,8 +225,6 @@ class __DrawAreaExampleState extends State<_DrawAreaExample> {
                   selectedPositions.last.first == selectedPositions.last.last) {
                 selectedPositions.add([]);
               }
-              coordinateSizeX = 1.0;
-              coordinateSizeY = 1.0;
               Offset? nearestValue = Polygon.getNearestPoint(
                   selectedPositions.last, Offset(selectedX!, selectedY!));
               selectedPositions.last.add(Offset(selectedX!, selectedY!));

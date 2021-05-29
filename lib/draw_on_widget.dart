@@ -18,12 +18,6 @@ class DrawOnWidget extends StatefulWidget {
   /// Callback to get Y - axis value
   final ValueChanged<double>? getYaxis;
 
-  /// Give coordinate size X
-  final double? coordinateSizeX;
-
-  /// Give coordinate size Y
-  final double? coordinateSizeY;
-
   /// Callback for OnTap
   final Function()? onTap;
 
@@ -42,8 +36,6 @@ class DrawOnWidget extends StatefulWidget {
     @required this.widget,
     @required this.getXaxis,
     @required this.getYaxis,
-    @required this.coordinateSizeY,
-    @required this.coordinateSizeX,
     this.showPointer = false,
     @required this.onTap,
     @required this.lineColor,
@@ -73,16 +65,12 @@ class _DrawOnWidgetState extends State<DrawOnWidget> {
               painter: SelectionPoint(
                 selectedPositionX!,
                 selectedPositionY!,
-                widget.coordinateSizeX!,
-                widget.coordinateSizeY!,
                 widget.pointsColor!,
               ),
             ),
           CustomPaint(
             painter: AnswerRegion(
               widget.correctAnswerCoordinates!,
-              widget.coordinateSizeX!,
-              widget.coordinateSizeY!,
               widget.lineColor!,
             ),
           )
@@ -108,12 +96,6 @@ class SelectionPoint extends CustomPainter {
   /// Selection point of Y
   double selectionPointYaxis;
 
-  /// Size of coordinate size X
-  double coordinateSizeX;
-
-  /// Size of coordinate size Y
-  double coordinateSizeY;
-
   /// Point color
   final Color color;
 
@@ -121,18 +103,13 @@ class SelectionPoint extends CustomPainter {
   SelectionPoint(
     this.selectionPointXaxis,
     this.selectionPointYaxis,
-    this.coordinateSizeX,
-    this.coordinateSizeY,
     this.color,
   );
 
   @override
   void paint(Canvas canvas, Size size) {
     final pointMode = ui.PointMode.points;
-    final points = [
-      Offset(selectionPointXaxis * coordinateSizeX,
-          selectionPointYaxis * coordinateSizeY)
-    ];
+    final points = [Offset(selectionPointXaxis, selectionPointYaxis)];
     final paint = Paint()
       ..color = color
       ..strokeWidth = 8
@@ -150,20 +127,12 @@ class AnswerRegion extends CustomPainter {
   /// Give the correct coordinates to draw
   List<List<Offset>> correctAnswerCoordinates;
 
-  /// Coordinates size of X
-  double coordinateSizeX;
-
-  ///Coordinates size of Y
-  double coordinateSizeY;
-
   /// Color to draw
   final Color color;
 
   /// Class to define the Draw lines on the given widget with given coordinates.
   AnswerRegion(
     this.correctAnswerCoordinates,
-    this.coordinateSizeX,
-    this.coordinateSizeY,
     this.color,
   );
 
@@ -174,8 +143,7 @@ class AnswerRegion extends CustomPainter {
     for (final List<Offset> coordinates in correctAnswerCoordinates) {
       List<Offset> points = [];
       for (int i = 0; i < coordinates.length; i++) {
-        points.add(Offset(coordinates[i].dx * coordinateSizeX,
-            coordinates[i].dy * coordinateSizeY));
+        points.add(Offset(coordinates[i].dx, coordinates[i].dy));
       }
       final paint = Paint()
         ..style = PaintingStyle.stroke
