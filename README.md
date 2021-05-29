@@ -1,6 +1,8 @@
 # Draw On
 
-A flutter plugin to draw the coordinates on the widget and as well as to find the given point is inside a list of coordinates or not.
+![Pub Version](https://img.shields.io/pub/v/draw_on)
+
+A flutter plugin to draw the coordinates on widget and as well as to find the given point is inside a list of coordinates or not.
 
 
 ## For Draw on widget 
@@ -93,4 +95,5 @@ isInside = polygon.isPointInside(Offset(xAxis, yAxis));
 
 ## Demo
 
-<img src="assets/demo.gif" alt="example">
+<p align="center">
+<img src="https://raw.githubusercontent.com/ThalapathySiva/draw_on/Master/assets/demo.gif" alt="example-location-builders">
