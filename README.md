@@ -93,3 +93,4 @@ isInside = polygon.isPointInside(Offset(xAxis, yAxis));
 
 ## Demo
 
+<img src="assets/demo.gif" alt="example">
