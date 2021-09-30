@@ -1,6 +1,6 @@
 name: draw_on
 description: A flutter plugin to draw the coordinates on the widget and as well as to find the given point is inside a list of coordinates or not.
-version: 0.0.1+1
+version: 0.0.1+2
 homepage: https://github.com/ThalapathySiva/draw_on
 repository: https://github.com/ThalapathySiva/draw_on
 
