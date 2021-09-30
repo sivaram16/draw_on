@@ -28,17 +28,25 @@ class SelectAreaWidget extends StatefulWidget {
   /// Line Color
   final Color? lineColor;
 
+  /// Line Stroke
+  final double lineStroke;
+
+  /// Point Stroke
+  final double pointStroke;
+
   /// Select Area will give you the, whether the selected point is inside the given points.
   SelectAreaWidget({
-    @required this.correctAnswerCoordinates,
-    @required this.widget,
-    @required this.getXaxis,
-    @required this.getYaxis,
-    @required this.onTap,
+    required this.correctAnswerCoordinates,
+    required this.widget,
+    required this.getXaxis,
+    required this.getYaxis,
+    required this.onTap,
     this.isSelectable = true,
     this.showPointer = false,
-    @required this.lineColor,
-    @required this.pointsColor,
+    required this.lineColor,
+    required this.pointsColor,
+    this.lineStroke = 4,
+    this.pointStroke = 8,
   });
   @override
   _SelectAreaWidgetState createState() => _SelectAreaWidgetState();
@@ -67,6 +75,7 @@ class _SelectAreaWidgetState extends State<SelectAreaWidget> {
                 selectedPositionX!,
                 selectedPositionY!,
                 widget.pointsColor!,
+                widget.pointStroke,
               ),
             ),
           if (widget.correctAnswerCoordinates!.isNotEmpty)
@@ -74,6 +83,7 @@ class _SelectAreaWidgetState extends State<SelectAreaWidget> {
               painter: AnswerRegion(
                 widget.correctAnswerCoordinates!,
                 widget.lineColor!,
+                widget.lineStroke,
               ),
             )
         ],

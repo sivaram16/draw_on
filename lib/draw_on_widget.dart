@@ -1,7 +1,7 @@
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 part 'select_area_widget.dart';
 
@@ -30,16 +30,24 @@ class DrawOnWidget extends StatefulWidget {
   /// Line Color
   final Color? lineColor;
 
+  /// Line Stroke
+  final double lineStroke;
+
+  /// Point Stroke
+  final double pointStroke;
+
   /// Draw on widget will let you to draw on the given widget and get the coordinates for it.
   DrawOnWidget({
-    @required this.correctAnswerCoordinates,
-    @required this.widget,
-    @required this.getXaxis,
-    @required this.getYaxis,
+    required this.correctAnswerCoordinates,
+    required this.widget,
+    required this.getXaxis,
+    required this.getYaxis,
     this.showPointer = false,
-    @required this.onTap,
-    @required this.lineColor,
-    @required this.pointsColor,
+    required this.onTap,
+    required this.lineColor,
+    required this.pointsColor,
+    this.lineStroke = 4,
+    this.pointStroke = 8,
   });
   @override
   _DrawOnWidgetState createState() => _DrawOnWidgetState();
@@ -66,12 +74,14 @@ class _DrawOnWidgetState extends State<DrawOnWidget> {
                 selectedPositionX!,
                 selectedPositionY!,
                 widget.pointsColor!,
+                widget.pointStroke,
               ),
             ),
           CustomPaint(
             painter: AnswerRegion(
               widget.correctAnswerCoordinates!,
               widget.lineColor!,
+              widget.lineStroke,
             ),
           )
         ],
@@ -99,11 +109,15 @@ class SelectionPoint extends CustomPainter {
   /// Point color
   final Color color;
 
+  /// Point Stroke
+  final double pointStroke;
+
   /// Class to define the selection point on the given widget
   SelectionPoint(
     this.selectionPointXaxis,
     this.selectionPointYaxis,
     this.color,
+    this.pointStroke,
   );
 
   @override
@@ -112,7 +126,7 @@ class SelectionPoint extends CustomPainter {
     final points = [Offset(selectionPointXaxis, selectionPointYaxis)];
     final paint = Paint()
       ..color = color
-      ..strokeWidth = 8
+      ..strokeWidth = pointStroke
       ..strokeCap = StrokeCap.round;
     canvas.drawPoints(pointMode, points, paint);
   }
@@ -130,10 +144,14 @@ class AnswerRegion extends CustomPainter {
   /// Color to draw
   final Color color;
 
+  /// Line Stroke
+  final double lineStroke;
+
   /// Class to define the Draw lines on the given widget with given coordinates.
   AnswerRegion(
     this.correctAnswerCoordinates,
     this.color,
+    this.lineStroke,
   );
 
   @override
@@ -148,7 +166,7 @@ class AnswerRegion extends CustomPainter {
       final paint = Paint()
         ..style = PaintingStyle.stroke
         ..color = color
-        ..strokeWidth = 4;
+        ..strokeWidth = lineStroke;
       canvas.drawPoints(pointMode, points, paint);
     }
   }
